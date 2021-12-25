@@ -1,30 +1,39 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div>
-  <router-view />
+    <div>
+<!--        <router-view/>-->
+        这里是测试
+        <el-button type="primary">Primary</el-button>
+        <el-calendar v-model="value"/>
+    </div>
 </template>
 
-<style lang="less">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+// 导入自定义hooks获取网络请求
+import { useHttp } from './hooks/index'
 
-#nav {
-  padding: 30px;
+import { ref } from 'vue'
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+export default {
+  setup() {
+    const { $http } = useHttp()
 
-    &.router-link-exact-active {
-      color: #42b983;
+    const value = ref(new Date())
+
+    const test = async () => {
+      const data = await $http.test()
+      console.log(data)
+    }
+
+    test()
+    return {
+      value
     }
   }
 }
+</script>
+
+<style lang="less">
+    div {
+        color: @fontRed;
+    }
 </style>
